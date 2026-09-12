@@ -11,6 +11,8 @@ import rainyNight from "../assets/rainyNight.svg";
 import stormyNight from "../assets/stormyNight.svg";
 import snowyNight from "../assets/snowyNight.svg";
 import foggyNight from "../assets/foggyNight.svg";
+import { useContext } from "react";
+import { CurrentTemperatureUnitContext } from "../contexts/CurrentTemperatureUnitContext";
 
 const weatherImages = {
   sunny: { day: sunnyDay, night: sunnyNight },
@@ -22,12 +24,15 @@ const weatherImages = {
 };
 
 function WeatherCard({ weatherData }) {
+  const { currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);
   const timeOfDay = weatherData.isDay ? "day" : "night";
   const image = weatherImages[weatherData.weatherType]?.[timeOfDay];
 
   return (
     <div className="weather-card" style={{ backgroundImage: `url(${image})` }}>
-      <p className="weather-card__temp">{weatherData.temp}°F</p>
+      <p className="weather-card__temp">
+        {weatherData.temp[currentTemperatureUnit]}°{currentTemperatureUnit}
+      </p>
     </div>
   );
 }

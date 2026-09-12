@@ -34,7 +34,10 @@ export function filterWeatherData(data) {
 
   return {
     city: data.name,
-    temp: data.main.temp,
+    temp: {
+      F: Math.round(data.main.temp),
+      C: Math.round((data.main.temp - 32) * (5 / 9)),
+    },
     condition: getWeatherCondition(data.main.temp),
     isDay,
     weatherType,
