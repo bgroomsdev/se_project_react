@@ -14,15 +14,21 @@ function ItemModal({ selectedCard, isOpen, onClose, name }) {
         <button type="button" className="modal__close" onClick={onClose}>
           <img src={closeButton} alt="Close" />
         </button>
-        <img
-          src={selectedCard.link}
-          alt={selectedCard.name}
-          className="modal__image"
-        />
-        <div className="modal__item-info">
-          <p className="modal__item-name">{selectedCard.name}</p>
-          <p className="modal__item-weather">Weather: {selectedCard.weather}</p>
-        </div>
+        {selectedCard.link && (
+          <>
+            <img
+              src={selectedCard.link}
+              alt={selectedCard.name}
+              className="modal__image"
+            />
+            <div className="modal__item-info">
+              <p className="modal__item-name">{selectedCard.name}</p>
+              <p className="modal__item-weather">
+                Weather: {selectedCard.weather}
+              </p>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
