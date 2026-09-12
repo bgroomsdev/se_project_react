@@ -1,6 +1,4 @@
 import "../blocks/header.css";
-import logo from "../assets/logo.svg";
-import avatar from "../assets/avatar.svg";
 import ToggleSwitch from "./ToggleSwitch";
 import { Link } from "react-router-dom";
 
@@ -9,6 +7,9 @@ function Header({ city, onAddClick }) {
     month: "long",
     day: "numeric",
   });
+
+  const logo = `${import.meta.env.BASE_URL}logo.svg`;
+  const avatar = `${import.meta.env.BASE_URL}avatar.svg`;
 
   return (
     <header className="header">

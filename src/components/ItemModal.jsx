@@ -1,7 +1,7 @@
 import "../blocks/modal.css";
-import closeButton from "../assets/close.svg";
 
 function ItemModal({ selectedCard, isOpen, onClose, name }) {
+  const closeButton = `${import.meta.env.BASE_URL}close.svg`;
   return (
     <div
       className={`modal modal_type_${name} ${isOpen ? "modal_is-opened" : ""}`}

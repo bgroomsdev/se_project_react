@@ -1,5 +1,4 @@
 import "../blocks/modal.css";
-import closeButton from "../assets/greyclose.svg";
 
 function ModalWithForm({
   title,
@@ -11,6 +10,7 @@ function ModalWithForm({
   onSubmit,
   isFormValid,
 }) {
+  const closeButton = `${import.meta.env.BASE_URL}greyclose.svg`;
   return (
     <div
       className={`modal modal_type_${name} ${isOpen ? "modal_is-opened" : ""}`}
