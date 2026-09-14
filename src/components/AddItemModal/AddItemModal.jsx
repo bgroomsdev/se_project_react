@@ -2,7 +2,7 @@ import ModalWithForm from "../ModalWithForm";
 import useForm from "../../hooks/useForm";
 
 const AddItemModal = ({ isOpen, onAddItem, onCloseModal }) => {
-  const { values, handleChange } = useForm({
+  const { values, handleChange, resetForm } = useForm({
     name: "",
     link: "",
     weather: "",
@@ -22,6 +22,7 @@ const AddItemModal = ({ isOpen, onAddItem, onCloseModal }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     onAddItem(values);
+    resetForm();
   };
 
   return (
@@ -30,7 +31,10 @@ const AddItemModal = ({ isOpen, onAddItem, onCloseModal }) => {
       name="add-clothing"
       buttonText="Add garment"
       isOpen={isOpen}
-      onClose={onCloseModal}
+      onClose={() => {
+        onCloseModal();
+        resetForm();
+      }}
       onSubmit={handleSubmit}
       isFormValid={isFormValid}
     >
@@ -62,7 +66,9 @@ const AddItemModal = ({ isOpen, onAddItem, onCloseModal }) => {
       </label>
       <fieldset className="modal__fieldset">
         <legend className="modal__legend">Select the weather type:</legend>
-        <label className={"modal__label-radio"}>
+        <label
+          className={`modal__label-radio ${values.weather === "hot" ? "modal__label-radio_checked" : ""}`}
+        >
           <input
             type="radio"
             name="weather"
@@ -72,7 +78,9 @@ const AddItemModal = ({ isOpen, onAddItem, onCloseModal }) => {
           />{" "}
           Hot
         </label>
-        <label className={"modal__label-radio"}>
+        <label
+          className={`modal__label-radio ${values.weather === "warm" ? "modal__label-radio_checked" : ""}`}
+        >
           <input
             type="radio"
             name="weather"
@@ -82,7 +90,9 @@ const AddItemModal = ({ isOpen, onAddItem, onCloseModal }) => {
           />{" "}
           Warm
         </label>
-        <label className={"modal__label-radio"}>
+        <label
+          className={`modal__label-radio ${values.weather === "cold" ? "modal__label-radio_checked" : ""}`}
+        >
           <input
             type="radio"
             name="weather"
