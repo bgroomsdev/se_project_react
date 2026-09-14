@@ -14,7 +14,7 @@ import { getItems, addItem, deleteItem } from "../utils/api";
 
 function App() {
   const [weatherData, setWeatherData] = useState({
-    temp: 0,
+    temp: { F: 0, C: -18 },
     condition: "",
     city: "",
   });
@@ -44,7 +44,9 @@ function App() {
   function handleDeleteItem(card) {
     deleteItem(card._id)
       .then(() => {
-        setClothingItems(clothingItems.filter((item) => item._id !== card._id));
+        setClothingItems((prev) =>
+          prev.filter((item) => item._id !== card._id),
+        );
         handleCloseModal();
       })
       .catch(console.error);
@@ -56,7 +58,7 @@ function App() {
       weather: values.weather,
     })
       .then((newItem) => {
-        setClothingItems([newItem, ...clothingItems]);
+        setClothingItems((prev) => [newItem, ...prev]);
         handleCloseModal();
       })
       .catch(console.error);
@@ -82,11 +84,12 @@ function App() {
   }, []);
 
   useEffect(() => {
+    if (!activeModal) return;
     window.addEventListener("keydown", handleEscClose);
     return () => {
       window.removeEventListener("keydown", handleEscClose);
     };
-  }, []);
+  }, [activeModal]);
 
   return (
     <div className="page">
