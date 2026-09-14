@@ -101,6 +101,12 @@
       "name": "T-Shirt",
       "weather": "hot",
       "imageUrl": "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/T-Shirt.png?etag=44ed1963c44ab19cd2f5011522c5fc09"
+    },
+    {
+      "name": "Gloves",
+      "imageUrl": "https://www.liontoolsmart.com/cdn/shop/products/cotton-knitted-hand-gloves-60gsm-500x500.jpg?v=1615965662",
+      "weather": "cold",
+      "_id": 17
     }
   ]
 }

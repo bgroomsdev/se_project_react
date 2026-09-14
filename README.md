@@ -34,7 +34,9 @@ WTWR is a weather-based clothing recommendation app. It fetches live weather dat
 
 ![Item Preview Modal](./screenshots/Item%20Preview%20Modal.png)
 
-## Demo
+## Project Pitch Video
+
+Check out [this video](https://drive.google.com/file/d/1rZ5nxyNI6x0MeCJlDNS0tfWHAizL1mUp/view?usp=sharing), where I describe my project and some challenges I faced while building it!
 
 ## Links
 
