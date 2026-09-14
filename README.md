@@ -24,7 +24,7 @@ WTWR is a weather-based clothing recommendation app. It fetches live weather dat
 
 ### Main Page
 
-![Main Page](./screenshots/Main%20Page.png)
+![Main Page](./screenshots/Updated%20Main%20Page.png)
 
 ### Add Clothes Modal
 
@@ -32,7 +32,7 @@ WTWR is a weather-based clothing recommendation app. It fetches live weather dat
 
 ### Item Preview
 
-![Item Preview Modal](./screenshots/Item%20Preview%20Modal.png)
+![Item Preview Modal](./screenshots/Updated%20Item%20Preview%20Modal.png)
 
 ## Project Pitch Video
 
@@ -41,4 +41,4 @@ Check out [this video](https://drive.google.com/file/d/1rZ5nxyNI6x0MeCJlDNS0tfWH
 ## Links
 
 - [Figma Design](https://www.figma.com/file/DTojSwldenF9UPKQZd6RRb/Sprint-10%3A-WTWR)
-- [Deployed Project](#)
+- [Deployed Project](https://bgroomsdev.github.io/se_project_react/)
