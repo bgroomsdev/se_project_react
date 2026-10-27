@@ -18,6 +18,7 @@
 .header__right {
   display: flex;
   align-items: center;
+  gap: 20px;
 }
 
 .header__logo {
@@ -35,13 +36,22 @@
 .header__username {
   font-size: 20px;
   font-weight: 700;
-  margin-right: 12px;
   line-height: 24px;
 }
 
 .header__avatar {
   width: 40px;
   height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.header__avatar_placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #c4c4c4;
+  color: #fff;
+  font-weight: 700;
 }
 
 .header__button {
@@ -52,7 +62,6 @@
   font-size: 20px;
   font-family: "Cabinet Grotesk", sans-serif;
   cursor: pointer;
-  margin-right: 20px;
   font-weight: 700;
   line-height: 24px;
   letter-spacing: 0;

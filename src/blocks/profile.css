@@ -9,7 +9,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 16px;
+  gap: 0;
   padding-top: 19px;
 }
 
@@ -19,6 +19,7 @@
   align-items: center;
   gap: 16px;
   width: 229px;
+  margin-bottom: 24px;
 }
 
 .clothes-section {
@@ -68,11 +69,6 @@
   font-size: 20px;
 }
 
-.clothes-section {
-  flex: 1;
-  padding-top: 35px;
-}
-
 .clothes-section__header {
   display: flex;
   align-items: center;
@@ -94,4 +90,28 @@
   font-weight: 700;
   font-size: 20px;
   opacity: 0.6;
+}
+
+.sidebar__avatar-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #c4c4c4;
+  color: #fff;
+  font-weight: 500;
+  font-size: 24px;
+}
+
+.sidebar__button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  font-family: "Cabinet Grotesk", sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.sidebar__button + .sidebar__button {
+  margin-top: 8px;
 }

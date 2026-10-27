@@ -16,20 +16,12 @@
   font-family: "Cabinet Grotesk", sans-serif;
   font-weight: 700;
   font-size: 16px;
-  line-height: 20px;
-  position: absolute;
-  top: 16px;
-  left: 0;
-  right: 0;
-  margin: 0 auto;
-  width: fit-content;
+  line-height: 24px;
+  margin: 0;
   max-height: 24px;
-  text-align: center;
-  z-index: 1;
   color: rgba(0, 0, 0, 0.6);
   background-color: rgba(255, 255, 255, 0.8);
   border-radius: 4px;
-  padding: 2px 12px;
 }
 
 .item-card__image {
@@ -40,4 +32,30 @@
   border-radius: 0;
   margin: 0;
   padding: 0;
+}
+
+.item-card__like-button {
+  flex-shrink: 0;
+  width: 18px;
+  height: 15px;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+  background: url("../assets/like.svg") center / contain no-repeat;
+}
+
+.item-card__like-button_active {
+  background-image: url("../assets/liked.svg");
+}
+
+.item-card__header {
+  position: absolute;
+  top: 16px;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 }

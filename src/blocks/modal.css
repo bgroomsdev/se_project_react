@@ -229,7 +229,7 @@
   font-family: "Cabinet Grotesk", sans-serif;
   font-weight: 700;
   cursor: pointer;
-  max-width: 124px;
+  max-width: 128px;
   max-height: 36px;
 }
 
@@ -252,4 +252,58 @@
 
 .modal__button:disabled {
   background-color: rgba(0, 0, 0, 0.3);
+}
+
+.modal_type_register .modal__content {
+  box-sizing: border-box;
+  width: 496px;
+  height: 456px;
+  max-width: 100%;
+}
+
+.modal_type_edit-profile .modal__content {
+  box-sizing: border-box;
+  width: 496px;
+  height: 304px;
+  max-width: 100%;
+}
+
+.modal__actions {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.modal__alt-button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: "Cabinet Grotesk", sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 20px;
+  color: rgba(0, 0, 0, 0.3);
+}
+
+.modal__alt-button:hover {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.modal_type_login .modal__content {
+  box-sizing: border-box;
+  width: 496px;
+  height: 304px;
+  max-width: 100%;
+}
+
+.modal_type_login .modal__content:has(.modal__error) {
+  height: 348px;
+}
+
+.modal__error {
+  margin-top: 8px;
+  font-size: 16px;
+  line-height: 20px;
+  color: rgba(255, 77, 0, 1);
 }

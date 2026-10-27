@@ -9,6 +9,7 @@ function ModalWithForm({
   children,
   onSubmit,
   isFormValid,
+  extraAction,
 }) {
   const closeButton = `${import.meta.env.BASE_URL}greyclose.svg`;
   return (
@@ -23,13 +24,16 @@ function ModalWithForm({
         </button>
         <form name={name} onSubmit={onSubmit}>
           {children}
-          <button
-            className="modal__button"
-            type="submit"
-            disabled={!isFormValid}
-          >
-            {buttonText}
-          </button>
+          <div className="modal__actions">
+            <button
+              className="modal__button"
+              type="submit"
+              disabled={!isFormValid}
+            >
+              {buttonText}
+            </button>
+            {extraAction}
+          </div>
         </form>
       </div>
     </div>

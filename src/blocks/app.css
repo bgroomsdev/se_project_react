@@ -6,6 +6,9 @@
 .page__content {
   max-width: 1360px;
   margin: 0 auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .modal {
