@@ -3,7 +3,13 @@ import ModalWithForm from "./ModalWithForm";
 import useForm from "../hooks/useForm";
 import { isValidEmail } from "../utils/validation";
 
-const LoginModal = ({ isOpen, onLogin, onClose }) => {
+const LoginModal = ({
+  isOpen,
+  onLogin,
+  onClose,
+  onRegisterClick,
+  isLoading,
+}) => {
   const { values, handleChange, resetForm } = useForm({
     email: "",
     password: "",
@@ -11,7 +17,8 @@ const LoginModal = ({ isOpen, onLogin, onClose }) => {
   const [loginError, setLoginError] = useState(false);
 
   const emailError = values.email && !isValidEmail(values.email);
-  const isFormValid = isValidEmail(values.email) && values.password;
+  const isFormValid =
+    isValidEmail(values.email) && values.password && !isLoading;
 
   useEffect(() => {
     if (isOpen) {
@@ -27,18 +34,27 @@ const LoginModal = ({ isOpen, onLogin, onClose }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onLogin(values, resetForm).catch(() => setLoginError(true));
+    onLogin(values).catch(() => setLoginError(true));
   };
 
   return (
     <ModalWithForm
       title="Log in"
       name="login"
-      buttonText="Log in"
+      buttonText={isLoading ? "Logging in..." : "Log in"}
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
       isFormValid={isFormValid}
+      extraAction={
+        <button
+          type="button"
+          className="modal__alt-button"
+          onClick={onRegisterClick}
+        >
+          or Sign up
+        </button>
+      }
     >
       <label
         className={`modal__label ${emailError ? "modal__label-error" : ""}`}

@@ -3,14 +3,15 @@ import useForm from "../hooks/useForm";
 import { useEffect } from "react";
 import { isValidUrl } from "../utils/validation";
 
-const AddItemModal = ({ isOpen, onAddItem, onClose }) => {
+const AddItemModal = ({ isOpen, onAddItem, onClose, isLoading }) => {
   const { values, handleChange, resetForm } = useForm({
     name: "",
     link: "",
     weather: "",
   });
 
-  const isFormValid = values.name && isValidUrl(values.link) && values.weather;
+  const isFormValid =
+    values.name && isValidUrl(values.link) && values.weather && !isLoading;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -27,7 +28,7 @@ const AddItemModal = ({ isOpen, onAddItem, onClose }) => {
     <ModalWithForm
       title="New garment"
       name="add-clothing"
-      buttonText="Add garment"
+      buttonText={isLoading ? "Adding..." : "Add garment"}
       isOpen={isOpen}
       onClose={() => {
         onClose();

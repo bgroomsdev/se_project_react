@@ -1,8 +1,10 @@
 import "../blocks/modal.css";
 import { useContext } from "react";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
+import useModalClose from "../hooks/useModalClose";
 
 function ItemModal({ selectedCard, isOpen, onClose, name, onDeleteClick }) {
+  useModalClose(isOpen, onClose);
   const closeButton = `${import.meta.env.BASE_URL}close.svg`;
   const currentUser = useContext(CurrentUserContext);
   const ownerId =
@@ -14,12 +16,8 @@ function ItemModal({ selectedCard, isOpen, onClose, name, onDeleteClick }) {
   return (
     <div
       className={`modal modal_type_${name} ${isOpen ? "modal_is-opened" : ""}`}
-      onClick={onClose}
     >
-      <div
-        className="modal__content modal__content_type_image"
-        onClick={(e) => e.stopPropagation()}
-      >
+      <div className="modal__content modal__content_type_image">
         <button type="button" className="modal__close" onClick={onClose}>
           <img src={closeButton} alt="Close" />
         </button>

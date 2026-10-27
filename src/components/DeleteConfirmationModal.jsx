@@ -1,16 +1,14 @@
 import "../blocks/modal.css";
+import useModalClose from "../hooks/useModalClose";
 
-function DeleteConfirmationModal({ isOpen, onClose, onDeleteItem }) {
+function DeleteConfirmationModal({ isOpen, onClose, onDeleteItem, isLoading }) {
+  useModalClose(isOpen, onClose);
   const closeButton = `${import.meta.env.BASE_URL}close.svg`;
   return (
     <div
       className={`modal modal_type_delete ${isOpen ? "modal_is-opened" : ""}`}
-      onClick={onClose}
     >
-      <div
-        className="modal__content modal__content_type_delete"
-        onClick={(e) => e.stopPropagation()}
-      >
+      <div className="modal__content modal__content_type_delete">
         <button type="button" className="modal__close-form" onClick={onClose}>
           <img src={closeButton} alt="Close" />
         </button>
@@ -23,8 +21,9 @@ function DeleteConfirmationModal({ isOpen, onClose, onDeleteItem }) {
             type="button"
             className="modal__delete-confirm"
             onClick={onDeleteItem}
+            disabled={isLoading}
           >
-            Yes, delete item
+            {isLoading ? "Deleting..." : "Yes, delete item"}
           </button>
           <button
             type="button"

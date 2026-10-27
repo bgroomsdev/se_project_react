@@ -3,13 +3,13 @@ import ModalWithForm from "./ModalWithForm";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import { isValidUrl } from "../utils/validation";
 
-function EditProfileModal({ isOpen, onEditProfile, onClose }) {
+function EditProfileModal({ isOpen, onEditProfile, onClose, isLoading }) {
   const currentUser = useContext(CurrentUserContext);
   const [name, setName] = useState("");
   const [avatar, setAvatar] = useState("");
 
   const avatarError = avatar && !isValidUrl(avatar);
-  const isFormValid = name.trim() !== "" && isValidUrl(avatar);
+  const isFormValid = name.trim() !== "" && isValidUrl(avatar) && !isLoading;
 
   useEffect(() => {
     if (isOpen) {
@@ -27,7 +27,7 @@ function EditProfileModal({ isOpen, onEditProfile, onClose }) {
     <ModalWithForm
       title="Change profile data"
       name="edit-profile"
-      buttonText="Save changes"
+      buttonText={isLoading ? "Saving..." : "Save changes"}
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}

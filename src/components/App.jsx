@@ -38,21 +38,11 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
   const [isAuthChecked, setIsAuthChecked] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleRegister = (values, resetForm) => {
-    signup(values)
-      .then(() =>
-        handleLogin(
-          { email: values.email, password: values.password },
-          resetForm,
-        ),
-      )
-      .catch(console.error);
-  };
-
-  const handleLogin = ({ email, password }, resetForm) => {
-    return signin({ email, password })
+  const loginRequest = ({ email, password }) =>
+    signin({ email, password })
       .then((res) => {
         localStorage.setItem("jwt", res.token);
         return checkToken(res.token);
@@ -60,24 +50,30 @@ function App() {
       .then((user) => {
         setCurrentUser(user);
         setIsLoggedIn(true);
-        handleCloseModal();
-        if (resetForm) resetForm();
         navigate("/");
-      })
+      });
+
+  const handleLogin = (values) => {
+    setIsLoading(true);
+    return loginRequest(values)
+      .then(handleCloseModal)
       .catch((err) => {
         console.error(err);
         throw err;
-      });
+      })
+      .finally(() => setIsLoading(false));
+  };
+
+  const handleRegister = (values) => {
+    const makeRequest = () => signup(values).then(() => loginRequest(values));
+    handleSubmit(makeRequest);
   };
 
   const handleEditProfile = ({ name, avatar }) => {
     const token = localStorage.getItem("jwt");
-    updateProfile({ name, avatar }, token)
-      .then((user) => {
-        setCurrentUser(user);
-        handleCloseModal();
-      })
-      .catch(console.error);
+    const makeRequest = () =>
+      updateProfile({ name, avatar }, token).then(setCurrentUser);
+    handleSubmit(makeRequest);
   };
 
   const handleSignOut = () => {
@@ -112,37 +108,36 @@ function App() {
   function handleCloseModal() {
     setActiveModal("");
   }
-  function handleEscClose(e) {
-    if (e.key === "Escape") {
-      handleCloseModal();
-    }
+  function handleSubmit(request) {
+    setIsLoading(true);
+    return request()
+      .then(handleCloseModal)
+      .catch(console.error)
+      .finally(() => setIsLoading(false));
   }
   function handleDeleteItem(card) {
     const token = localStorage.getItem("jwt");
-    deleteItem(card._id, token)
-      .then(() => {
+    const makeRequest = () =>
+      deleteItem(card._id, token).then(() =>
         setClothingItems((prev) =>
           prev.filter((item) => item._id !== card._id),
-        );
-        handleCloseModal();
-      })
-      .catch(console.error);
+        ),
+      );
+    handleSubmit(makeRequest);
   }
   function handleAddItemSubmit(values) {
+    if (isLoading) return;
     const token = localStorage.getItem("jwt");
-    addItem(
-      {
-        name: values.name,
-        imageUrl: values.link,
-        weather: values.weather,
-      },
-      token,
-    )
-      .then((newItem) => {
-        setClothingItems((prev) => [newItem, ...prev]);
-        handleCloseModal();
-      })
-      .catch(console.error);
+    const makeRequest = () =>
+      addItem(
+        {
+          name: values.name,
+          imageUrl: values.link,
+          weather: values.weather,
+        },
+        token,
+      ).then((newItem) => setClothingItems((prev) => [newItem, ...prev]));
+    handleSubmit(makeRequest);
   }
   function handleToggleSwitchChange() {
     setCurrentTemperatureUnit(currentTemperatureUnit === "F" ? "C" : "F");
@@ -163,14 +158,6 @@ function App() {
       })
       .catch(console.error);
   }, []);
-
-  useEffect(() => {
-    if (!activeModal) return;
-    window.addEventListener("keydown", handleEscClose);
-    return () => {
-      window.removeEventListener("keydown", handleEscClose);
-    };
-  }, [activeModal]);
 
   useEffect(() => {
     const token = localStorage.getItem("jwt");
@@ -238,22 +225,27 @@ function App() {
             isOpen={activeModal === "add-clothing"}
             onAddItem={handleAddItemSubmit}
             onClose={handleCloseModal}
+            isLoading={isLoading}
           />
           <RegisterModal
             isOpen={activeModal === "register"}
             onRegister={handleRegister}
             onClose={handleCloseModal}
             onLoginClick={() => setActiveModal("login")}
+            isLoading={isLoading}
           />
           <LoginModal
             isOpen={activeModal === "login"}
             onLogin={handleLogin}
             onClose={handleCloseModal}
+            onRegisterClick={() => setActiveModal("register")}
+            isLoading={isLoading}
           />
           <EditProfileModal
             isOpen={activeModal === "edit-profile"}
             onEditProfile={handleEditProfile}
             onClose={handleCloseModal}
+            isLoading={isLoading}
           />
           <ItemModal
             name="preview"
@@ -266,6 +258,7 @@ function App() {
             isOpen={activeModal === "delete-clothing"}
             onClose={handleCloseModal}
             onDeleteItem={() => handleDeleteItem(selectedCard)}
+            isLoading={isLoading}
           />
         </CurrentTemperatureUnitContext.Provider>
       </CurrentUserContext.Provider>

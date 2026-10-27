@@ -3,7 +3,13 @@ import ModalWithForm from "./ModalWithForm";
 import useForm from "../hooks/useForm";
 import { isValidEmail, isValidUrl } from "../utils/validation";
 
-const RegisterModal = ({ isOpen, onRegister, onClose, onLoginClick }) => {
+const RegisterModal = ({
+  isOpen,
+  onRegister,
+  onClose,
+  onLoginClick,
+  isLoading,
+}) => {
   const { values, handleChange, resetForm } = useForm({
     name: "",
     avatar: "",
@@ -18,7 +24,8 @@ const RegisterModal = ({ isOpen, onRegister, onClose, onLoginClick }) => {
     values.name &&
     isValidUrl(values.avatar) &&
     isValidEmail(values.email) &&
-    values.password;
+    values.password &&
+    !isLoading;
 
   useEffect(() => {
     if (isOpen) resetForm();
@@ -26,14 +33,14 @@ const RegisterModal = ({ isOpen, onRegister, onClose, onLoginClick }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onRegister(values, resetForm);
+    onRegister(values);
   };
 
   return (
     <ModalWithForm
       title="Sign up"
       name="register"
-      buttonText="Sign up"
+      buttonText={isLoading ? "Signing up..." : "Sign up"}
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}

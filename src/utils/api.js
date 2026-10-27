@@ -1,58 +1,52 @@
 import checkResponse from "./checkResponse";
 export const baseUrl = "http://localhost:3001";
 
+export function request(url, options) {
+  return fetch(url, options).then(checkResponse);
+}
+
+const authHeaders = (token) => ({
+  "Content-Type": "application/json",
+  authorization: `Bearer ${token}`,
+});
+
 export function getItems() {
-  return fetch(`${baseUrl}/items`).then(checkResponse);
+  return request(`${baseUrl}/items`);
 }
 
 export function addItem({ name, imageUrl, weather }, token) {
-  return fetch(`${baseUrl}/items`, {
+  return request(`${baseUrl}/items`, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      authorization: `Bearer ${token}`,
-    },
+    headers: authHeaders(token),
     body: JSON.stringify({ name, imageUrl, weather }),
-  }).then(checkResponse);
+  });
 }
 
 export function deleteItem(id, token) {
-  return fetch(`${baseUrl}/items/${id}`, {
+  return request(`${baseUrl}/items/${id}`, {
     method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-      authorization: `Bearer ${token}`,
-    },
-  }).then(checkResponse);
+    headers: authHeaders(token),
+  });
 }
 
 export function updateProfile({ name, avatar }, token) {
-  return fetch(`${baseUrl}/users/me`, {
+  return request(`${baseUrl}/users/me`, {
     method: "PATCH",
-    headers: {
-      "Content-Type": "application/json",
-      authorization: `Bearer ${token}`,
-    },
+    headers: authHeaders(token),
     body: JSON.stringify({ name, avatar }),
-  }).then(checkResponse);
+  });
 }
 
 export function addCardLike(id, token) {
-  return fetch(`${baseUrl}/items/${id}/likes`, {
+  return request(`${baseUrl}/items/${id}/likes`, {
     method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-      authorization: `Bearer ${token}`,
-    },
-  }).then(checkResponse);
+    headers: authHeaders(token),
+  });
 }
 
 export function removeCardLike(id, token) {
-  return fetch(`${baseUrl}/items/${id}/likes`, {
+  return request(`${baseUrl}/items/${id}/likes`, {
     method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-      authorization: `Bearer ${token}`,
-    },
-  }).then(checkResponse);
+    headers: authHeaders(token),
+  });
 }
