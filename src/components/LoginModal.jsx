@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react";
 import ModalWithForm from "./ModalWithForm";
 import useForm from "../hooks/useForm";
+import { isValidEmail } from "../utils/validation";
 
-const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-
-const LoginModal = ({ isOpen, onLogin, onCloseModal }) => {
+const LoginModal = ({ isOpen, onLogin, onClose }) => {
   const { values, handleChange, resetForm } = useForm({
     email: "",
     password: "",
@@ -37,7 +36,7 @@ const LoginModal = ({ isOpen, onLogin, onCloseModal }) => {
       name="login"
       buttonText="Log in"
       isOpen={isOpen}
-      onClose={onCloseModal}
+      onClose={onClose}
       onSubmit={handleSubmit}
       isFormValid={isFormValid}
     >

@@ -62,6 +62,7 @@ function App() {
         setIsLoggedIn(true);
         handleCloseModal();
         if (resetForm) resetForm();
+        navigate("/");
       })
       .catch((err) => {
         console.error(err);
@@ -236,23 +237,23 @@ function App() {
           <AddItemModal
             isOpen={activeModal === "add-clothing"}
             onAddItem={handleAddItemSubmit}
-            onCloseModal={handleCloseModal}
+            onClose={handleCloseModal}
           />
           <RegisterModal
             isOpen={activeModal === "register"}
             onRegister={handleRegister}
-            onCloseModal={handleCloseModal}
+            onClose={handleCloseModal}
             onLoginClick={() => setActiveModal("login")}
           />
           <LoginModal
             isOpen={activeModal === "login"}
             onLogin={handleLogin}
-            onCloseModal={handleCloseModal}
+            onClose={handleCloseModal}
           />
           <EditProfileModal
             isOpen={activeModal === "edit-profile"}
             onEditProfile={handleEditProfile}
-            onCloseModal={handleCloseModal}
+            onClose={handleCloseModal}
           />
           <ItemModal
             name="preview"

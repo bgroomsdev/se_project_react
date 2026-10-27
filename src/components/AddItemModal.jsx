@@ -1,22 +1,14 @@
 import ModalWithForm from "./ModalWithForm";
 import useForm from "../hooks/useForm";
 import { useEffect } from "react";
+import { isValidUrl } from "../utils/validation";
 
-const AddItemModal = ({ isOpen, onAddItem, onCloseModal }) => {
+const AddItemModal = ({ isOpen, onAddItem, onClose }) => {
   const { values, handleChange, resetForm } = useForm({
     name: "",
     link: "",
     weather: "",
   });
-
-  const isValidUrl = (url) => {
-    try {
-      new URL(url);
-      return true;
-    } catch {
-      return false;
-    }
-  };
 
   const isFormValid = values.name && isValidUrl(values.link) && values.weather;
 
@@ -38,7 +30,7 @@ const AddItemModal = ({ isOpen, onAddItem, onCloseModal }) => {
       buttonText="Add garment"
       isOpen={isOpen}
       onClose={() => {
-        onCloseModal();
+        onClose();
         resetForm();
       }}
       onSubmit={handleSubmit}

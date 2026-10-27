@@ -5,7 +5,12 @@ import { CurrentUserContext } from "../contexts/CurrentUserContext";
 function ItemModal({ selectedCard, isOpen, onClose, name, onDeleteClick }) {
   const closeButton = `${import.meta.env.BASE_URL}close.svg`;
   const currentUser = useContext(CurrentUserContext);
-  const isOwn = currentUser._id && selectedCard.owner === currentUser._id;
+  const ownerId =
+    typeof selectedCard.owner === "string"
+      ? selectedCard.owner
+      : selectedCard.owner?._id;
+  const isOwn = Boolean(currentUser._id) && ownerId === currentUser._id;
+  const imageSrc = selectedCard.imageUrl || selectedCard.link;
   return (
     <div
       className={`modal modal_type_${name} ${isOpen ? "modal_is-opened" : ""}`}
@@ -18,10 +23,10 @@ function ItemModal({ selectedCard, isOpen, onClose, name, onDeleteClick }) {
         <button type="button" className="modal__close" onClick={onClose}>
           <img src={closeButton} alt="Close" />
         </button>
-        {selectedCard.imageUrl && (
+        {imageSrc && (
           <>
             <img
-              src={selectedCard.imageUrl}
+              src={imageSrc}
               alt={selectedCard.name}
               className="modal__image"
             />

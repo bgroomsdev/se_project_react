@@ -1,19 +1,9 @@
 import { useEffect } from "react";
 import ModalWithForm from "./ModalWithForm";
 import useForm from "../hooks/useForm";
+import { isValidEmail, isValidUrl } from "../utils/validation";
 
-const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-
-const isValidUrl = (url) => {
-  try {
-    new URL(url);
-    return true;
-  } catch {
-    return false;
-  }
-};
-
-const RegisterModal = ({ isOpen, onRegister, onCloseModal, onLoginClick }) => {
+const RegisterModal = ({ isOpen, onRegister, onClose, onLoginClick }) => {
   const { values, handleChange, resetForm } = useForm({
     name: "",
     avatar: "",
@@ -45,7 +35,7 @@ const RegisterModal = ({ isOpen, onRegister, onCloseModal, onLoginClick }) => {
       name="register"
       buttonText="Sign up"
       isOpen={isOpen}
-      onClose={onCloseModal}
+      onClose={onClose}
       onSubmit={handleSubmit}
       isFormValid={isFormValid}
       extraAction={
