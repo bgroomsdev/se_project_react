@@ -1,5 +1,8 @@
 import checkResponse from "./checkResponse";
-export const baseUrl = "http://localhost:3001";
+export const baseUrl =
+  process.env.NODE_ENV === "production"
+    ? "https://api.wtwrsub.okzk.com"
+    : "http://localhost:3001";
 
 export function request(url, options) {
   return fetch(url, options).then(checkResponse);
